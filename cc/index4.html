@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Задание: События мыши</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      padding: 20px;
+      background: #fafafa;
+    }
+    .panel {
+      border: 2px solid #333;
+      padding: 15px;
+      width: 300px;
+      background: white;
+    }
+    .panel h3 {
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+    .block {
+      border: 2px solid teal;
+      padding: 15px;
+      margin: 10px 0;
+    }
+    .child {
+      border: 1px dashed gray;
+      padding: 10px;
+      margin: 5px 0;
+    }
+    .log-panel {
+      width: 400px;
+      border: 2px solid #333;
+      padding: 15px;
+      background: #e8e8e8;
+      font-family: monospace;
+    }
+    .log {
+      height: 200px;
+      overflow-y: scroll;
+      background: white;
+      border: 1px solid #aaa;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    .log div {
+      border-bottom: 1px solid #ccc;
+      padding: 2px;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Панель 1: mouseover / mouseout -->
+<div class="panel" id="panel-over">
+  <h3>mouseover / mouseout</h3>
+  <div class="block" id="blockA">
+    Блок A
+    <div class="child" id="childA1">Дочерний A.1</div>
+    <div class="child" id="childA2">Дочерний A.2</div>
+  </div>
+  <div class="block" id="blockB">
+    Блок B
+    <div class="child" id="childB1">Дочерний B.1</div>
+  </div>
+  <p><i>Подсвечивается текущий элемент. Логируем с relatedTarget.</i></p>
+</div>
+
+<!-- Панель 2: mouseenter / mouseleave -->
+<div class="panel" id="panel-enter">
+  <h3>mouseenter / mouseleave</h3>
+  <div class="block" id="blockC">
+    Блок C
+    <div class="child" id="childC1">Дочерний C.1</div>
+    <div class="child" id="childC2">Дочерний C.2</div>
+  </div>
+  <div class="block" id="blockD">
+    Блок D
+    <div class="child" id="childD1">Дочерний D.1</div>
+  </div>
+  <p><i>Подсветка родителя не гаснет при переходе на потомка.</i></p>
+</div>
+
+<!-- Панель лога -->
+<div class="log-panel">
+  <h3>Лог событий</h3>
+  <div class="log" id="log"></div>
+  <button id="clear-log">Очистить лог</button>
+</div>
+
+<!-- Ваш код пишите внутри тега <script> -->
+<script>
+  // TODO: реализуйте описанную логику здесь
+  // Советы:
+  // 1. Для первой панели используйте mouseover/mouseout на контейнере (всплытие).
+  // 2. Для второй панели используйте mouseenter/mouseleave на каждом блоке и дочернем элементе отдельно.
+  // 3. Не забывайте проверять event.relatedTarget на null.
+  // 4. При смене фона используйте добавление/удаление классов. Классы можно называть, например, .hover-over и .hover-enter.
+  // 5. Для лога создайте функцию addLogMessage(text).
+</script>
+</body>
+</html>

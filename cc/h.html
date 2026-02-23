@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Расчёты</title>
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        input, button { margin: 5px 0; padding: 5px; }
+        .block { margin-bottom: 30px; }
+        .result { margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<!-- ЗАДАНИЕ 1 -->
+<div class="block">
+    <h2>Задание 1. Абонемент в бассейн</h2>
+
+    <label>Количество посещений (до 12):</label><br>
+    <input type="number" id="visits" min="1" max="12"><br>
+
+    <button onclick="calcPool()">Рассчитать стоимость</button>
+
+    <div class="result" id="poolResult"></div>
+</div>
+
+<!-- ЗАДАНИЕ 2 -->
+<div class="block">
+    <h2>Задание 2. Зарплата менеджера</h2>
+
+    <label>Количество обслуженных клиентов:</label><br>
+    <input type="number" id="clients" min="0"><br>
+
+    <label>Количество выходов по воскресеньям:</label><br>
+    <input type="number" id="sundays" min="0"><br>
+
+    <button onclick="calcSalary()">Рассчитать зарплату</button>
+
+    <div class="result" id="salaryResult"></div>
+</div>
+
+<script>
+    /* ---------- ЗАДАНИЕ 1 ---------- */
+    function calcPool() {
+        let visits = Number(document.getElementById("visits").value);
+
+        if (visits > 12) {
+            alert("Максимум 12 посещений!");
+            return;
+        }
+
+        let packs = Math.floor(visits / 4);
+        let single = visits % 4;
+
+        let total = packs * 1500 + single * 400;
+
+        if (total > 3000) {
+            total *= 0.9; // скидка 10%
+        }
+
+        document.getElementById("poolResult").innerText = `Итоговая стоимость: ${total.toFixed(2)} руб.`;
+    }
+
+    /* ---------- ЗАДАНИЕ 2 ---------- */
+    function calcSalary() {
+        const baseSalary = 30000;
+        const dailySalary = 1000;
+
+        let clients = Number(document.getElementById("clients").value);
+        let sundays = Number(document.getElementById("sundays").value);
+
+        let bonus = 0;
+
+        if (clients >= 10) {
+            bonus = baseSalary * clients * 0.02;
+            if (clients > 60) {
+                bonus *= 2;
+            }
+        }
+
+        let sundayPay = sundays * dailySalary * 2;
+        let grossSalary = baseSalary + bonus + sundayPay;
+        let netSalary = grossSalary * 0.87;
+
+        document.getElementById("salaryResult").innerHTML = `
+        Оклад: ${baseSalary} руб.<br>
+        Клиентов обслужено: ${clients}<br>
+        Надбавка за клиентов: ${bonus.toFixed(2)} руб.<br>
+        Выходов по воскресеньям: ${sundays}<br>
+        Доплата за воскресенья: ${sundayPay} руб.<br><br>
+        Зарплата до налога: ${grossSalary.toFixed(2)} руб.<br>
+        Зарплата после налога (13%): ${netSalary.toFixed(2)} руб.
+    `;
+    }
+</script>
+
+</body>
+</html>

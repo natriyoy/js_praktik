@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЧитайГород - Современная Библиотека</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --dark-color: #1d3557;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
+            --gray-color: #6c757d;
+            --light-gray: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 6px 25px rgba(0, 0, 0, 0.12);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+            --book-card-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fb;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 3rem;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, rgba(29, 53, 87, 0.92) 0%, rgba(67, 97, 238, 0.85) 100%), url('https://images.unsplash.com/photo-1507842217343-583bb7270b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+            color: var(--success-color);
+        }
+
+        .logo span {
+            color: var(--success-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
+            font-size: 1.05rem;
+            padding: 8px 12px;
+            border-radius: 30px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 70%;
+            height: 3px;
+            background: var(--success-color);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(29, 53, 87, 0.85), rgba(67, 97, 238, 0.9)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 60px;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 4.2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 14px 36px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 2px solid var(--accent-color);
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--dark-color);
+        }
+
+        /* Books Section */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(var(--book-card-width), 1fr));
+            gap: 35px;
+            margin-top: 30px;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .book-cover {
+            height: 380px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .book-info {
+            padding: 25px;
+        }
+
+        .book-title {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .book-author {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .book-desc {
+            color: var(--gray-color);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: linear-gradient(135deg, #f5f7fb 0%, #e4edf5 100%);
+        }
+
+        .calculator-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 45px;
+        }
+
+        .calculator-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .calculator-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .result-container {
+            grid-column: 1 / -1;
+            background: var(--light-gray);
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .result-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+            font-size: 1.2rem;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 35px 25px;
+            border-radius: var(--border-radius);
+            background: var(--light-color);
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            background: white;
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 70px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .footer-col p {
+            opacity: 0.85;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.75);
+            text-decoration: none;
+            transition: var(--transition);
+            display: block;
+            padding: 5px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 25px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .btn {
+                padding: 12px 28px;
+                font-size: 0.95rem;
+            }
+            .btn-outline {
+                margin-left: 10px;
+            }
+            .section {
+                padding: 70px 0;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .book-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            .calculator-container {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            .btn-outline {
+                margin-left: 0;
+            }
+            .calculator-form {
+                padding: 0 10px;
+            }
+            .form-group {
+                padding: 0 5px;
+            }
+            .book-cover {
+                height: 320px;
+            }
+        }
+
+        /* Animation for book cards */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .book-card:nth-child(odd) {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .book-card:nth-child(even) {
+            animation: float 7s ease-in-out infinite reverse;
+        }
+
+        /* Book cover images */
+        .book-1 { background-image: url('https://images.unsplash.com/photo-1544942590-74c2ad1f7eeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .book-2 { background-image: url('https://images.unsplash.com/photo-1541963463532-d68292c3da92?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .book-3 { background-image: url('https://images.unsplash.com/photo-1543002588-bfa74002ed7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80'); }
+        .book-4 { background-image: url('https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .book-5 { background-image: url('https://images.unsplash.com/photo-1544927588-2e7f8d52d16e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .book-6 { background-image: url('https://images.unsplash.com/photo-1544942590-74c2ad1f7eeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+    </style>
+</head>
+<body>
+<!-- Header with Navigation -->
+<header>
+    <div class="container header-container">
+        <a href="#" class="logo">
+            <i class="fas fa-book-open"></i>
+            Читай<span>Город</span>
+        </a>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Главная</a></li>
+                <li><a href="#books">Каталог</a></li>
+                <li><a href="#calculator">Калькулятор</a></li>
+                <li><a href="#features">Услуги</a></li>
+                <li><a href="#contact">Контакты</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="container hero-content">
+        <h1>Мир Знаний в Ваших Руках</h1>
+        <p>Откройте для себя тысячи книг из разных жанров. Электронные и печатные издания, аудиокниги и многое другое для вашего удовольствия и развития.</p>
+        <a href="#books" class="btn">Наш Каталог</a>
+        <a href="#calculator" class="btn btn-outline">Рассчитать Штраф</a>
+    </div>
+</section>
+
+<!-- Books Section -->
+<section class="section" id="books">
+    <div class="container">
+        <div class="section-title">
+            <h2>Популярные Книги</h2>
+        </div>
+        <div class="books-grid">
+            <!-- Book Card 1 -->
+            <div class="book-card">
+                <div class="book-cover book-1"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Атлант Расправил Плечи</h3>
+                    <span class="book-author">Айн Рэнд</span>
+                    <p class="book-desc">Эпический роман-антиутопия о борьбе сильных духом людей в мире, который отвергает разум и прогресс.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1957</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Card 2 -->
+            <div class="book-card">
+                <div class="book-cover book-2"></div>
+                <div class="book-info">
+                    <h3 class="book-title">451 градус по Фаренгейту</h3>
+                    <span class="book-author">Рэй Брэдбери</span>
+                    <p class="book-desc">Антиутопический роман о мире, где книги запрещены, а пожарные не тушат огонь, а разжигают его.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1953</span>
+                        <span><i class="fas fa-star"></i> 4.7</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Card 3 -->
+            <div class="book-card">
+                <div class="book-cover book-3"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Мастер и Маргарита</h3>
+                    <span class="book-author">Михаил Булгаков</span>
+                    <p class="book-desc">Величайший роман о добре и зле, любви и справедливости, написанный в советское время.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1967</span>
+                        <span><i class="fas fa-star"></i> 4.9</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Card 4 -->
+            <div class="book-card">
+                <div class="book-cover book-4"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Гарри Поттер и Философский камень</h3>
+                    <span class="book-author">Дж.К. Роулинг</span>
+                    <p class="book-desc">Первая книга о приключениях юного волшебника в Хогвартсе, которая покорила миллионы читателей.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1997</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Card 5 -->
+            <div class="book-card">
+                <div class="book-cover book-5"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Преступление и Наказание</h3>
+                    <span class="book-author">Федор Достоевский</span>
+                    <p class="book-desc">Психологический роман о бедном студенте, решившем проверить свою теорию о праве сильной личности.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1866</span>
+                        <span><i class="fas fa-star"></i> 4.9</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Book Card 6 -->
+            <div class="book-card">
+                <div class="book-cover book-6"></div>
+                <div class="book-info">
+                    <h3 class="book-title">Маленький Принц</h3>
+                    <span class="book-author">Антуан де Сент-Экзюпери</span>
+                    <p class="book-desc">Философская сказка о мальчике, который жил на астероиде и путешествовал по другим мирам.</p>
+                    <div class="book-meta">
+                        <span><i class="fas fa-calendar-alt"></i> 1943</span>
+                        <span><i class="fas fa-star"></i> 4.8</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Calculator Section -->
+<section class="section calculator-section" id="calculator">
+    <div class="container">
+        <div class="section-title">
+            <h2>Калькулятор Штрафов</h2>
+        </div>
+        <div class="calculator-container">
+            <div class="calculator-title">
+                <h3>Рассчитайте сумму штрафа за просрочку</h3>
+                <p id="disk">Заполните форму ниже, чтобы узнать размер штрафа за возврат книги после срока</p>
+            </div>
+            <form class="calculator-form">
+                <div class="form-group">
+                    <label for="book-title">Название книги</label>
+                    <input type="text" id="book-title" class="input-field" placeholder="Введите название книги">
+                </div>
+                <div class="form-group">
+                    <label for="loan-days">Срок аренды (дней)</label>
+                    <select id="loan-days">
+                        <option value="14">14 дней</option>
+                        <option value="21" selected>21 день</option>
+                        <option value="30">30 дней</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="overdue-days">Дней просрочки</label>
+                    <input  type="number" id="overdue-days" class="input-field" min="1" max="365" value="5">
+                </div>
+                <div class="form-group">
+                    <label for="book-cost">Стоимость книги (₽)</label>
+                    <input type="number" id="book-cost" class="input-field" min="100" max="10000" value="1500">
+                </div>
+                <div class="form-group full-width">
+                    <button type="button" id="btn" style="width: 100%; padding: 16px;">Рассчитать Штраф</button>
+                </div>
+                <div class="form-group full-width result-container" id="result-container">
+                    <div class="result-title">Результаты расчета:</div>
+                    <div class="result-item">
+                        <span>Срок аренды:</span>
+                        <span id="result-item-day">21 день</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Дней просрочки:</span>
+                        <span id="result-item-day-pros">5 дней</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Базовый штраф:</span>
+                        <span id="result-item-baz">150 ₽</span>
+                    </div>
+                    <div class="result-item">
+                        <span>Доп. комиссия:</span>
+                        <span id="result-item-com">75 ₽</span>
+                    </div>
+                    <div class="result-item">
+                        <span><strong>Итого к оплате:</strong></span>
+                        <span  id="result-itog"><strong>225 ₽</strong></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script>
+    let btn = document.getElementById('btn');
+    let blockInfo = document.getElementById('result-container');
+    let pole = document.getElementById('overdue-days');
+    let pole2 = document.getElementById('book-cost');
+    let pole3 = document.getElementById('book-title');
+    let disk2 = document.getElementById('disk');
+    btn.addEventListener("click", function() {
+        blockInfo.style.display = 'none';
+        pole.style.borderColor = '';
+        pole2.style.borderColor = '';
+        pole3.style.borderColor = '';
+        document.getElementById('disk').textContent = "Заполните форму ниже, чтобы узнать размер штрафа за возврат книги после срока"
+
+
+        let bookTitle = document.getElementById('book-title').value;
+        let overdueDays = document.getElementById('overdue-days').value;
+        let bookCost = document.getElementById('book-cost').value;
+        let disk = document.getElementById('disk').value;
+        const loanDaysSelect = document.getElementById('loan-days').value; // Срок аренды
+        let basStraf = 10 * overdueDays;
+        let day = overdueDays - 3;
+        let comissiy = (0.05 * bookCost) * day;
+        let comis = comissiy.toFixed(2);
+
+        let itog = 0;
+
+        let hasError = false;
+
+        if (bookTitle == "") {
+            pole3.style.borderColor = 'red';
+            hasError = true;
+        }
+
+        if (overdueDays <= 0) {
+            pole.style.borderColor = 'red';
+            hasError = true;
+        }
+
+        if (bookCost <= 0) {
+            pole2.style.borderColor = 'red';
+            pole2.classList.add('error');
+
+            hasError = true;
+        }
+
+        if (hasError) {
+            document.getElementById('disk').textContent = "Проверьте корректность введенных данных!";
+            return;
+        }
+
+        if (overdueDays > 3) {
+
+            itog = comissiy + basStraf;
+        } else  {
+            itog = basStraf * overdueDays;
+        }
+        let rounded = itog.toFixed(2);
+        document.getElementById('result-item-day').textContent = loanDaysSelect;
+        document.getElementById('result-item-day-pros').textContent = overdueDays;
+        document.getElementById('result-item-baz').textContent = basStraf + " ₽";
+        document.getElementById('result-item-com').textContent = comis + " ₽";
+        document.getElementById('result-itog').textContent = rounded + " ₽";
+
+        blockInfo.style.display = 'block';
+
+
+
+    });
+
+</script>
+<!--ЗАДАНИЯ ДЛЯ ПРАКТИКИ ВНЕДРЕНИЯ JS:-->
+
+<!--1. КАЛЬКУЛЯТОР ШТРАФОВ:-->
+<!-- - Сделайте калькулятор функциональным: при нажатии на кнопку "Рассчитать Штраф"-->
+<!--должен появляться блок с результатами (сейчас он скрыт через display: none)-->
+<!-- - Реализуйте логику расчета:-->
+<!--* Базовый штраф = 10₽ за каждый день просрочки-->
+<!--* Доп. комиссия = 5% от стоимости книги за каждый день просрочки свыше 3 дней-->
+<!-- - Добавьте валидацию формы (проверка заполнения полей, положительные числа)-->
+
+<!-- Features Section -->
+<section class="section features" id="features">
+    <div class="container">
+        <div class="section-title">
+            <h2>Наши Услуги</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="feature-title">Большой Каталог</h3>
+                <p>Более 50 000 книг различных жанров и направлений, включая новинки и классику мировой литературы.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headphones"></i>
+                </div>
+                <h3 class="feature-title">Аудиокниги</h3>
+                <p>Слушайте любимые книги в любое время и в любом месте. Большая коллекция аудиозаписей профессиональных дикторов.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-laptop"></i>
+                </div>
+                <h3 class="feature-title">Электронные Книги</h3>
+                <p>Мгновенный доступ к электронным версиям книг. Читайте на любом устройстве с сохранением закладок и заметок.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer Section -->
+<footer id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>ЧитайГород</h3>
+                <p>Современная библиотека нового поколения, объединяющая традиционные ценности чтения и современные технологии.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-vk"></i></a>
+                    <a href="#"><i class="fab fa-telegram"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Контакты</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Ленина, 45</li>
+                    <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                    <li><i class="fas fa-envelope"></i> info@chitaigorod.ru</li>
+                    <li><i class="fas fa-clock"></i> Пн-Вс: 9:00 - 21:00</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Меню</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#books">Каталог Книг</a></li>
+                    <li><a href="#calculator">Калькулятор Штрафов</a></li>
+                    <li><a href="#features">Услуги</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Подписка</h3>
+                <p>Подпишитесь на нашу рассылку, чтобы получать новости и специальные предложения:</p>
+                <form>
+                    <input type="email" placeholder="Ваш email" style="width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: none;">
+                    <button type="submit" class="btn" style="width: 100%; padding: 10px; background: var(--accent-color); border: none; border-radius: 5px;">Подписаться</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2026 ЧитайГород. Все права защищены. | Создано с любовью к книгам</p>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript Tasks for Practice -->
+<script>
+    document.body.style.background = 'red'; // сделать фон красным
+
+    setTimeout(() => document.body.style.background = '', 3000); // вернуть назад
+    /*
+    ЗАДАНИЯ ДЛЯ ПРАКТИКИ ВНЕДРЕНИЯ JS:
+
+    1. КАЛЬКУЛЯТОР ШТРАФОВ:
+       - Сделайте калькулятор функциональным: при нажатии на кнопку "Рассчитать Штраф"
+         должен появляться блок с результатами (сейчас он скрыт через display: none)
+       - Реализуйте логику расчета:
+         * Базовый штраф = 10₽ за каждый день просрочки
+         * Доп. комиссия = 5% от стоимости книги за каждый день просрочки свыше 3 дней
+       - Добавьте валидацию формы (проверка заполнения полей, положительные числа)
+
+    2. ПОИСК И ФИЛЬТРАЦИЯ КНИГ:
+       - Добавьте строку поиска над каталогом книг
+       - Реализуйте фильтрацию книг по названию, автору при вводе в поле поиска
+       - Добавьте фильтры по жанрам и годам издания
+
+    3. МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ КНИГИ:
+       - При клике на карточку книги открывайте модальное окно с подробной информацией
+       - Добавьте в модалку: полное описание, отзывы, кнопку "Взять на прокат"
+
+    4. СЛАЙДЕР ОТЗЫВОВ:
+       - Создайте секцию с отзывами читателей
+       - Реализуйте слайдер с возможностью переключения отзывов
+
+    5. АНИМАЦИЯ ПРИ ПРОКРУТКЕ:
+       - Добавьте появление элементов при прокрутке страницы (анимация появления)
+       - Реализуйте плавную прокрутку при клике на пункты меню
+
+    6. ТЕМНЫЙ РЕЖИМ:
+       - Добавьте переключатель темного режима в шапку сайта
+       - Сохраняйте выбор пользователя в localStorage
+
+    7. КОРЗИНА ДЛЯ ЗАКАЗА КНИГ:
+       - Добавьте кнопку "Взять на прокат" на каждую карточку книги
+       - Создайте иконку корзины в шапке с количеством выбранных книг
+       - Реализуйте модальное окно с оформлением заказа
+
+    8. АДАПТИВНОЕ МЕНЮ ДЛЯ МОБИЛЬНЫХ:
+       - Создайте бургер-меню для мобильных устройств
+       - Реализуйте анимацию открытия/закрытия меню
+
+    9. ВАЛИДАЦИЯ ФОРМЫ ПОДПИСКИ:
+       - Добавьте валидацию email в форме подписки в футере
+       - Покажите сообщение об успешной подписке после отправки
+
+    10. ИНТЕРАКТИВНАЯ КАРТА БИБЛИОТЕК:
+        - Добавьте секцию с картой расположения библиотек
+        - Реализуйте интерактивные метки с информацией о каждой библиотеке
+    */
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все типы input</title>
+    <link rel="stylesheet" href="form.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>📝 Все типы input</h1>
+        <p>Изучаем все виды HTML input элементов</p>
+    </header>
+
+    <main>
+        <form id="mainForm">
+            <!-- 1. TEXT -->
+            <div class="input-card">
+                <label>Текстовое поле (text):</label>
+                <input type="text" id="textInput" placeholder="Введите любой текст" value="Привет, мир!">
+                <small>type="text" - обычный текст</small>
+            </div>
+
+            <!-- 2. PASSWORD -->
+            <div class="input-card">
+                <label>Пароль (password):</label>
+                <input type="password" id="passwordInput" placeholder="Введите пароль" value="123456">
+                <small>type="password" - скрытые символы</small>
+            </div>
+
+            <!-- 3. EMAIL -->
+            <div class="input-card">
+                <label>Email (email):</label>
+                <input type="email" id="emailInput" placeholder="example@mail.com" value="test@mail.com">
+                <small>type="email" - проверка формата email</small>
+            </div>
+
+            <!-- 4. NUMBER -->
+            <div class="input-card">
+                <label>Число (number):</label>
+                <input type="number" id="numberInput" min="0" max="100" step="5" value="50">
+                <small>type="number" - только цифры, есть стрелки</small>
+            </div>
+
+            <!-- 5. TEL -->
+            <div class="input-card">
+                <label>Телефон (tel):</label>
+                <input type="tel" id="telInput" placeholder="+7 (999) 999-99-99" value="+7 999 123-45-67">
+                <small>type="tel" - для телефонных номеров</small>
+            </div>
+
+            <!-- 6. URL -->
+            <div class="input-card">
+                <label>Ссылка (url):</label>
+                <input type="url" id="urlInput" placeholder="https://example.com" value="https://google.com">
+                <small>type="url" - проверка формата URL</small>
+            </div>
+
+            <!-- 7. SEARCH -->
+            <div class="input-card">
+                <label>Поиск (search):</label>
+                <input type="search" id="searchInput" placeholder="Поиск..." value="JavaScript">
+                <small>type="search" - есть кнопка очистки</small>
+            </div>
+
+            <!-- 8. DATE -->
+            <div class="input-card">
+                <label>Дата (date):</label>
+                <input type="date" id="dateInput" value="2025-02-18">
+                <small>type="date" - выбор даты</small>
+            </div>
+
+            <!-- 9. TIME -->
+            <div class="input-card">
+                <label>Время (time):</label>
+                <input type="time" id="timeInput" value="14:30">
+                <small>type="time" - выбор времени</small>
+            </div>
+
+            <!-- 10. DATETIME-LOCAL -->
+            <div class="input-card">
+                <label>Дата и время (datetime-local):</label>
+                <input type="datetime-local" id="datetimeInput" value="2025-02-18T14:30">
+                <small>type="datetime-local" - дата и время вместе</small>
+            </div>
+
+            <!-- 11. MONTH -->
+            <div class="input-card">
+                <label>Месяц (month):</label>
+                <input type="month" id="monthInput" value="2025-02">
+                <small>type="month" - выбор месяца и года</small>
+            </div>
+
+            <!-- 12. WEEK -->
+            <div class="input-card">
+                <label>Неделя (week):</label>
+                <input type="week" id="weekInput" value="2025-W07">
+                <small>type="week" - выбор недели</small>
+            </div>
+
+            <!-- 13. COLOR -->
+            <div class="input-card">
+                <label>Цвет (color):</label>
+                <input type="color" id="colorInput" value="#6c5ce7">
+                <small>type="color" - выбор цвета</small>
+            </div>
+
+            <!-- 14. RANGE -->
+            <div class="input-card">
+                <label>Ползунок (range): <span id="rangeValue">50</span></label>
+                <input type="range" id="rangeInput" min="0" max="100" value="50">
+                <small>type="range" - ползунок</small>
+            </div>
+
+            <!-- 15. CHECKBOX -->
+            <div class="input-card">
+                <label>Чекбоксы (checkbox):</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="hobby" value="reading" checked> Чтение</label>
+                    <label><input type="checkbox" name="hobby" value="sports"> Спорт</label>
+                    <label><input type="checkbox" name="hobby" value="music"> Музыка</label>
+                    <label><input type="checkbox" name="hobby" value="games"> Игры</label>
+                </div>
+                <small>type="checkbox" - множественный выбор</small>
+            </div>
+
+            <!-- 16. RADIO -->
+            <div class="input-card">
+                <label>Радиокнопки (radio):</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="gender" value="male" checked> Мужской</label>
+                    <label><input type="radio" name="gender" value="female"> Женский</label>
+                    <label><input type="radio" name="gender" value="other"> Другой</label>
+                </div>
+                <small>type="radio" - одиночный выбор</small>
+            </div>
+
+            <!-- 17. FILE -->
+            <div class="input-card">
+                <label>Файл (file):</label>
+                <input type="file" id="fileInput" multiple>
+                <small>type="file" - загрузка файлов</small>
+            </div>
+
+            <!-- 18. HIDDEN (невидимый) -->
+            <input type="hidden" id="hiddenInput" value="секретное значение">
+
+            <!-- 19. BUTTONS -->
+            <div class="buttons-card">
+                <h3>Кнопки</h3>
+
+                <!-- SUBMIT -->
+                <div class="input-card">
+                    <label>Отправить (submit):</label>
+                    <button type="submit" id="submitBtn">Отправить форму</button>
+                    <small>type="submit" - отправка формы</small>
+                </div>
+
+                <!-- RESET -->
+                <div class="input-card">
+                    <label>Сброс (reset):</label>
+                    <button type="reset" id="resetBtn">Сбросить форму</button>
+                    <small>type="reset" - сброс к начальным значениям</small>
+                </div>
+
+                <!-- BUTTON -->
+                <div class="input-card">
+                    <label>Обычная кнопка (button):</label>
+                    <button type="button" id="showDataBtn">Показать данные</button>
+                    <small>type="button" - для JavaScript</small>
+                </div>
+            </div>
+        </form>
+
+        <!-- Место для отображения данных -->
+        <div class="results" id="results">
+            <h2>Данные формы:</h2>
+            <pre id="dataOutput">Нажмите кнопку "Показать данные"</pre>
+        </div>
+    </main>
+</div>
+
+<script src="form.js"></script>
+</body>
+</html>

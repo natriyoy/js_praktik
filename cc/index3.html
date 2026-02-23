@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Пример: mouseover vs mouseenter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+    }
+    .container {
+      width: 300px;
+      border: 2px solid #333;
+      padding: 10px;
+    }
+    .block {
+      border: 2px solid #666;
+      padding: 15px;
+      margin: 10px 0;
+      transition: background 0.2s;
+    }
+    .child {
+      border: 1px dashed #999;
+      padding: 10px;
+      margin: 5px 0;
+    }
+    .highlight {
+      background-color: #ffd700; /* Золотой */
+    }
+    .fade {
+      background-color: #87ceeb; /* Небесно-голубой */
+    }
+    .log-panel {
+      width: 400px;
+      border: 2px solid #333;
+      padding: 10px;
+      background: #f4f4f4;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    .log-panel div {
+      border-bottom: 1px solid #ccc;
+      padding: 3px;
+    }
+    .selected {
+      background: rgba(147, 100, 157, 0.98);
+      color: white;
+      transition: 0.5s;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      padding: 5px 10px;
+      margin: 3px 0;
+      border: 1px solid #aaa;
+      cursor: default;
+    }
+    li.selected {
+      background: rgba(147, 100, 157, 0.98);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Демонстрация 1: mouseover/mouseout с relatedTarget (пример из файла, но доработанный) -->
+<div class="container">
+  <h3>Список (mouseover + relatedTarget)</h3>
+  <ul id="list">
+    <li>Один</li>
+    <li>Два</li>
+    <li>Три</li>
+    <li>Четыре</li>
+    <li>Пять</li>
+  </ul>
+  <p><i>При наведении на пункт — он подсвечивается, предыдущий — гаснет.</i></p>
+</div>
+
+<!-- Демонстрация 2: Вложенные блоки. mouseover/mouseout (всплытие) -->
+<div class="container" id="parent-over">
+  <h3>mouseover / mouseout</h3>
+  <div class="block" id="block1">Блок 1
+    <div class="child" id="child1-1">Потомок 1.1</div>
+    <div class="child" id="child1-2">Потомок 1.2</div>
+  </div>
+  <div class="block" id="block2">Блок 2
+    <div class="child" id="child2-1">Потомок 2.1</div>
+  </div>
+  <p><i>При переходе на потомка срабатывает mouseout на родителе (из-за всплытия).</i></p>
+</div>
+
+<!-- Демонстрация 3: mouseenter / mouseleave (без всплытия) -->
+<div class="container" id="parent-enter">
+  <h3>mouseenter / mouseleave</h3>
+  <div class="block" id="block3">Блок 3
+    <div class="child" id="child3-1">Потомок 3.1</div>
+    <div class="child" id="child3-2">Потомок 3.2</div>
+  </div>
+  <p><i>Переход на потомка НЕ вызывает mouseleave на родителе.</i></p>
+</div>
+
+<!-- Панель логирования -->
+<div class="log-panel" id="log">
+  <h4>Лог событий:</h4>
+  <div id="log-content"></div>
+  <button onclick="clearLog()">Очистить лог</button>
+</div>
+
+<script>
+
+
+  // --- 1. Пример со списком (mouseover + relatedTarget) ---
+  // --- 1. Пример со списком (mouseover + relatedTarget) ---
+  let ul = document.querySelector('#list');
+
+  ul.addEventListener('mouseover', function(event) {
+    if (event.target.tagName === 'LI') {
+      event.target.classList.add('selected');
+    }
+  });
+
+  ul.addEventListener('mouseout', function(event) {
+    if (event.target.tagName === 'LI') {
+      event.target.classList.remove('selected');
+    }
+  });
+
+  // --- 2. mouseover / mouseout на блоках (демонстрация всплытия) ---
+  const parentOver = document.getElementById('parent-over');
+  const block1 = document.getElementById('block1');
+  const block2 = document.getElementById('block2');
+  const child11 = document.getElementById('child1-1');
+  const child12 = document.getElementById('child1-2');
+  const child21 = document.getElementById('child2-1');
+
+
+
+
+</script>
+</body>
+</html>
